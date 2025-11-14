@@ -38,7 +38,7 @@ export async function POST(
         }
 
         // Generate agent token with longer TTL
-        const token = generateLiveKitToken({
+        const token = await generateLiveKitToken({
             roomName: room.roomId,
             identity: `agent_${agentId}`,
             metadata: JSON.stringify({

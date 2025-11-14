@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         });
 
         // Generate customer token
-        const customerToken = generateLiveKitToken({
+        const customerToken = await generateLiveKitToken({
             roomName: room.roomId,
             identity: `customer_${from}`,
             metadata: JSON.stringify({ phone: from, role: 'customer' }),

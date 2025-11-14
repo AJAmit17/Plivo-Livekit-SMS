@@ -6,33 +6,7 @@ import {
   LiveKitRoom,
   VideoConference,
   RoomAudioRenderer,
-  useConnectionQualityIndicator,
 } from '@livekit/components-react';
-
-function ConnectionQuality() {
-    const quality = useConnectionQualityIndicator();
-    const qualityStr = quality?.quality || 'unknown';
-
-    const getQualityColor = () => {
-        switch (qualityStr) {
-            case 'excellent':
-                return 'bg-green-500';
-            case 'good':
-                return 'bg-blue-500';
-            case 'poor':
-                return 'bg-yellow-500';
-            default:
-                return 'bg-red-500';
-        }
-    };
-
-    return (
-        <div className="absolute top-4 right-4 z-10 flex items-center gap-2 bg-black/60 px-3 py-2 rounded-lg text-white text-sm">
-            <div className={`w-3 h-3 rounded-full ${getQualityColor()}`}></div>
-            <span className="capitalize">{qualityStr}</span>
-        </div>
-    );
-}
 
 function CallTimer({ startTime }: { startTime: number }) {
     const [elapsed, setElapsed] = useState(0);
@@ -148,7 +122,7 @@ export default function RoomPage() {
     }
 
     return (
-        <div className="h-screen w-screen bg-gray-900">
+        <div className="h-screen w-screen bg-gray-900" data-lk-theme="default">
             <LiveKitRoom
                 token={token}
                 serverUrl={livekitUrl}
@@ -158,9 +132,12 @@ export default function RoomPage() {
                 audio={true}
                 video={true}
                 className="h-full"
+                options={{
+                    adaptiveStream: true,
+                    dynacast: true,
+                }}
             >
                 {joinTime && <CallTimer startTime={joinTime} />}
-                <ConnectionQuality />
                 <VideoConference />
                 <RoomAudioRenderer />
             </LiveKitRoom>

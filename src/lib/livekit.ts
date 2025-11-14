@@ -6,7 +6,7 @@ export interface GenerateTokenParams {
     metadata?: string;
 }
 
-export function generateLiveKitToken(params: GenerateTokenParams): string {
+export async function generateLiveKitToken(params: GenerateTokenParams): Promise<string> {
     const at = new AccessToken(
         process.env.LIVEKIT_API_KEY!,
         process.env.LIVEKIT_API_SECRET!,
@@ -28,7 +28,7 @@ export function generateLiveKitToken(params: GenerateTokenParams): string {
         at.metadata = params.metadata;
     }
 
-    return at.toJwt();
+    return await at.toJwt();
 }
 
 export const LIVEKIT_URL = process.env.LIVEKIT_URL!;

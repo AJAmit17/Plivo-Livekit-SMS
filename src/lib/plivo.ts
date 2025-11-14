@@ -21,8 +21,8 @@ export async function sendSms(params: SendSmsParams): Promise<SendSmsResponse> {
     const optionalParams = params.url ? { url: params.url } : undefined;
     
     const response = await client.messages.create(
-        process.env.PLIVO_PHONE_NUMBER!,
         params.to,
+        process.env.PLIVO_PHONE_NUMBER!,
         params.text,
         optionalParams
     );

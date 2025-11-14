@@ -29,7 +29,7 @@ export async function GET(
         }
 
         // Generate new customer token
-        const token = generateLiveKitToken({
+        const token = await generateLiveKitToken({
             roomName: room.roomId,
             identity: `customer_${room.customerPhone}_${Date.now()}`,
             metadata: JSON.stringify({
